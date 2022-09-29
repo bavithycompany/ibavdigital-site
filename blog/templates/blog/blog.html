@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+        <section class="page-section blog">
+            <div class="container">
+                <h1>BLOG</h1>
+                <div class="p-4 p-md-5 mb-4 rounded text-bg-dark" style="box-shadow: 0px 0px 2px;">
+                    <div class="col-md-8 px-0">
+                      <h1 class="display-5 fst-italic">{{ actu.titre }}</h1>
+                      <p class="lead my-3">{{ actu.content }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for article in posts %}
+                    <div class="col-md-6">
+                      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                          <strong class="d-inline-block mb-2 text-primary">ibavdigital</strong>
+                          <h3 class="mb-0">{{ article.titre }}</h3>
+                          <div class="mb-1 text-muted">{{ article.created_on|date:"Y-m-d" }}</div>
+                          <p class="card-text mb-auto">{{ article.meta_desc|truncatewords:10 }}</p>
+                          <a href="{% url 'article' article.slug %}" class="stretched-link">Continuer de lire</a>
+                        </div>
+                        <div class="col d-lg-block">
+                            <img class="" width="100%" height="100%" src="{{ article.image.url }}" class="card-img-top" alt="{{ article.titre }}">
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </section>
+
+{% endblock %}
