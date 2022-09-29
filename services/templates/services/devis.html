@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Obtenez un devis complet pour la conception de votre site web et de vos visuels graphiques en moins de 24h" />
+        <title>Obtenir un devis pour votre site web/design</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/logo-icon.png' %}" />
+         <!-- Core theme CSS (incluant Bootstrap)-->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font.css' %}">
+    </head>
+    <body id="blog">
+        <!-- Masthead-->
+        <header class="mastheadd">
+            <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" id="mainNav" style="text-align: center;">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'assets/logo.png' %}" alt="..." width="70" height="420" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+		        <div class="collapse navbar-collapse ul" id="navbarSupportedContent">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+
+                            <ul class="dropdown-menu" >
+                                {% for service in services %}
+                                <li><a class="dropdown-item" href="{% url 'service_details' service.slug %}">{{ service.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'blog' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">A propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        </header>
+
+
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Obtenir une soumission</h2>
+                    <h3 class="section-subheading text-muted">Remplissez ce formulaire pour une soumission gratuite !</h3>
+                </div>
+
+
+                <form class="form-devis" id="Form" name="Form" method="post" onsubmit="return valider()" action="{% url 'devis_registration' %}">
+                    {% csrf_token %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6 section_devis">
+                            <div class="row">
+                                <div class="input_devis">
+                                    <input type="text" required id="name" name="name" placeholder="Nom *">
+                                </div>
+                                <div class="input_devis">
+                                    <input type="text" required id="companyName" name="companyName" placeholder="Nom de l'entreprise *">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col input_devis">
+                                    <input type="text" required id="email" name="email" placeholder="Email *">
+                                </div>
+                                <div class="col input_devis">
+                                    <input type="text" required id="phone" name="phone" value="+237" placeholder="Telephone *">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col input_devis">
+                                    <input type="text" required id="budget" name="budget" placeholder="Budget *">
+                                </div>
+                                <div class="col input_devis">
+                                    <select name="projet" required id="projet">
+                                        <option value="">---------</option>
+                                        {% for ser in services %}
+                                        <option value="1">{{ ser.name }}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 section_devis">
+                            <textarea placeholder="Decrivez votre projet" required id="message" name="message"></textarea>
+                        </div>
+                        <div class="btn-devis" style="margin-top: 20px;">
+                            <button class="btn btn-primary text-uppercase" type="submit">Soumettre</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </section>
+
+
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Bavithycompany 2022</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fa fa-instagram"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none" href="{% url 'terms_of_use' %}">Conditions d'utilisation</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <a class="btn-fix" href="#" style="background: rgba(107, 123, 140, 0.4); border: none; height: 30px;"><i class="fa fa-sort-up" style="padding: 10px; color: #fff;"></i></a>
+
+        <!-- Bootstrap core JS-->
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+    </html>
